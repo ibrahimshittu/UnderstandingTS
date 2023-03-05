@@ -41,6 +41,7 @@ class ITDepartment extends Department {
 }
 class AccountingDepartment extends Department {
     private reports: string[]
+    private static instance: AccountingDepartment
     lastReport: string;
 
     get mostRecentReport() {
@@ -57,11 +58,21 @@ class AccountingDepartment extends Department {
         this.addAndPrintReport(value)
     }
 
-    constructor(id: string, reports: string[]) {
+    // ensure you can't call new on the constructor
+    private constructor(id: string, reports: string[]) {
         super(id, "Accounting");
         this.reports = reports;
         this.lastReport = reports[0];
     }
+
+    static getInstance() {
+        if (this.instance) {
+            return this.instance
+        }
+        this.instance = new AccountingDepartment("id", ["report"]);
+        return this.instance;
+    }
+
 
     abstractDescribe() {
         console.log("Hello Abstract" + this.id)
@@ -84,13 +95,14 @@ class AccountingDepartment extends Department {
 const employee1 = Department.createEmployee("Ibrahim")
 const fiscalYear = Department.fiscalYear
 
-const ibrahim = new Department("Ibrahim", "a1");
+// const ibrahim = new Department("Ibrahim", "a1");
 const itDepartment = new ITDepartment("Ibrahim", ["a1"]);
-new AccountingDepartment("a1", ["hello"]).mostRecentReport = 'lates report'
+const accountInstance = AccountingDepartment.getInstance();
+// new AccountingDepartment("a1", ["hello"]).mostRecentReport = 'lates report'
 
-ibrahim.describe();
-ibrahim.addEmployee("Ibrahim Shittu")
-ibrahim.printEmployeeInformation()
+// ibrahim.describe();
+// ibrahim.addEmployee("Ibrahim Shittu")
+// ibrahim.printEmployeeInformation()
 
 
 // ibrahim.employees[2] = "Sofiu" #this would not work due to th eprivate keyword in front of employees key
