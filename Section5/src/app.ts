@@ -1,10 +1,17 @@
 class Department {
     // private name: string;
+    static fiscalYear = 2020; // you cannot access this under any other method not static
     protected employees: string[] = [] // you can also add methods as private 
 
     constructor(private readonly name: string, public id: string) {
 
     }
+
+    // static method
+    static createEmployee(name: string) {
+        return { name: name }
+    }
+
 
     describe(this: Department) {
         console.log("Department: " + this.name + this.id)
@@ -62,6 +69,9 @@ class AccountingDepartment extends Department {
         console.log("This is the text: " + text)
     }
 }
+
+const employee1 = Department.createEmployee("Ibrahim")
+const fiscalYear = Department.fiscalYear
 
 const ibrahim = new Department("Ibrahim", "a1");
 const itDepartment = new ITDepartment("Ibrahim", ["a1"]);
