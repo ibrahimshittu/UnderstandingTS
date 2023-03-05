@@ -1,4 +1,4 @@
-class Department {
+abstract class Department {
     // private name: string;
     static fiscalYear = 2020; // you cannot access this under any other method not static
     protected employees: string[] = [] // you can also add methods as private 
@@ -17,6 +17,9 @@ class Department {
         console.log("Department: " + this.name + this.id)
     }
 
+    // abstract methods and classes
+    abstract abstractDescribe(this: Department): void;
+
     addEmployee(employee: string) {
         this.employees.push(employee)
     }
@@ -30,6 +33,10 @@ class Department {
 class ITDepartment extends Department {
     constructor(id: string, public admins: string[]) {
         super(id, "IT");
+    }
+
+    abstractDescribe() {
+        console.log("Hello Abstract" + this.id)
     }
 }
 class AccountingDepartment extends Department {
@@ -54,6 +61,10 @@ class AccountingDepartment extends Department {
         super(id, "Accounting");
         this.reports = reports;
         this.lastReport = reports[0];
+    }
+
+    abstractDescribe() {
+        console.log("Hello Abstract" + this.id)
     }
 
     addEmployee(name: string) {
